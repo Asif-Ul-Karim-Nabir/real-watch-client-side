@@ -3,7 +3,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div>
+        <div >
            <AppBar position="static" color="primary">
           <Container maxWidth="md">
             <Toolbar>

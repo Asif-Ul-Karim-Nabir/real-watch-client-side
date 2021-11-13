@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import { Link,Route, Switch, NavLink } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth/useAuth';
 import { Button } from '@mui/material';
+import MyOrder from '../MyOrder/MyOrder';
+import AddReviews from '../AddReviews/AddReviews';
 
 const drawerWidth = 240;
 
@@ -121,13 +123,13 @@ function DashBoard(props) {
           <h3>Welcome to our DashBoard !!</h3>
           </Route>
           <Route path="/dashboard/order">
-          <h3>muy ouresf</h3>
+            <MyOrder></MyOrder>
           </Route>
           <Route path="/dashboard/payment">
-          <h3>Payment System Is Comming Soon....</h3>
+          <h3 style={{height:'100vh'}}>Payment System Is Comming Soon....</h3>
           </Route>
           <Route path="/dashboard/reviews">
-          <h3>reviesw</h3>
+          <AddReviews></AddReviews>
           </Route>
          </Switch>
     </Box>

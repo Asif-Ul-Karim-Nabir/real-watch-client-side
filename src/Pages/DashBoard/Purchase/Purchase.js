@@ -25,21 +25,25 @@ const Purchase = () => {
         const value = e.target.value;
         const newOrderData = {...orderInfo}
         newOrderData[feild] = value;
-        console.log(newOrderData );
+        // console.log(newOrderData );
         setOrderInfo(newOrderData)
     }
     const handleOrder = e => {
         // collect data 
-        const order = {
-            ...orderInfo
+        const orders = {
+            ...orderInfo,
+            productName: product.name,
+            price: product.price,
+            email: user.email
         }
+        
         // send to the server 
-        fetch('http://localhost:5000/orders',{
-            method:'POST',
-            headers:{
-                'content-type':'applicatin/json'
+        fetch('https://peaceful-journey-32516.herokuapp.com/orders',{
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
             },
-            body:JSON.stringify(order)
+            body: JSON.stringify(orders)
         })
         .then(res=>res.json())
         .then(data=>{
@@ -48,7 +52,7 @@ const Purchase = () => {
         e.preventDefault()
     }
     return (
-        <div>
+        <div style={{height:'100vh'}}>
             <h1>{product?.name}</h1>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             <Grid  item xs={12} md={6}>
@@ -78,7 +82,7 @@ const Purchase = () => {
             <Typography variant="h4" component="div" sx={{ flexGrow: 1,marginBottom:'20px' }}>
                     Purchase
                     </Typography>
-                    <form onSubmit={handleOrder}>
+                    <form>
                     <TextField      
                     sx={{width:'50%',marginBottom:'15px'}}         
                     onBlur={handleOnBlur}
@@ -101,7 +105,7 @@ const Purchase = () => {
                     defaultValue={user?.email}
                     variant="standard"
                     /> <br /> <br />
-                    <Button sx={{width:'50%'}}   variant="contained" >Order Now</Button>
+                    <Button onClick={handleOrder} sx={{width:'50%'}}   variant="contained" >Order Now</Button>
                     </form>
             </Grid>
         </Grid>
