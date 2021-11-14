@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import Product from '../Product/Product';
-import { Container } from '@mui/material';
+import './Products.css'
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -12,18 +10,17 @@ const Products = () => {
         .then(data=>setProducts(data.slice(0,6)))
     },[])
     return (
-        <Container>
-             <Box sx={{ width: '100%' ,marginTop:'50px',marginBottom:'50px'}}>
-             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        <div style={{backgroundColor:'#F6F6F6',paddingBottom:'20px'}}>
+            <h1 style={{margin:'0',paddingTop:'15px',paddingBottom:'25px'}}>Our Products</h1>
+             <div className="products-container">
                 {
                     products.map(product=><Product
                     key={product.name}
                     product={product}
                     ></Product>)
                 }
-                </Grid>
-            </Box>
-        </Container>
+            </div>
+        </div>
     );
 };
 

@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
 const Product = ({product}) => {
     const {_id,name, img, descriptions, price} = product
     return (
-            <Card sx={{ maxWidth: 345,margin:'auto'}}>
+            <Card sx={{height:'cover'}}>
                 <CardActionArea>
                 <CardMedia
                     component="img"

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
-import { Typography } from '@mui/material';
 import Review from '../Review/Review';
+import './Reviews.css'
 
 const Reviews = () => {
     const [reviews, setReviews] = useState([]);
@@ -12,20 +12,16 @@ const Reviews = () => {
         .then(data=>setReviews(data))
     },[])
     return (
-        <div style={{backgroundColor:'#F6F6F6'}}>
-            
-             <Typography sx={{paddingTop:'20px',color:'#1a53ff'}} gutterBottom variant="h4" component="div">
-              Reviews
-            </Typography>
-             
-             <Grid >
+        <div style={{backgroundColor:'#F6F6F6',paddingBottom:'20px'}}>
+            <h2 style={{paddingTop:'25px'}}>Customer Reviews</h2> 
+             <div className="reviews-container">
                 {
                     reviews.map(review=><Review
                     key={review._id}
                     review={review}
                     ></Review>)
                 }
-                </Grid>
+                </div>
             
         </div>
     );

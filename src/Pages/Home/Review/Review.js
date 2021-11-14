@@ -2,13 +2,12 @@ import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, Grid, Rating } from '@mui/material';
+import { CardActionArea, Rating } from '@mui/material';
 
 const Review = ({review}) => {
     const {name,email,ratings,review_text} = review
     return (
-       <Grid item md={12}>
-            <Card >
+            <Card sx={{height:'cover'}}>
         <CardActionArea>
         <CardContent>
             <Typography gutterBottom variant="h5" component="div">
@@ -24,7 +23,6 @@ const Review = ({review}) => {
         </CardContent>
         </CardActionArea>
     </Card>
-       </Grid>
     );
 };
 
