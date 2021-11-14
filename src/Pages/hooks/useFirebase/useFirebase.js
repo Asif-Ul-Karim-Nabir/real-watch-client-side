@@ -6,11 +6,13 @@ initializeFirebase()
 
 const useFirebase = () => {
     const [user, setUser] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState('')
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
 
     const registerUser = (email,password,history) => {
+        setIsLoading(true)
     createUserWithEmailAndPassword(auth, email, password)
     .then((result) => {
         const user = result.user;
@@ -22,9 +24,11 @@ const useFirebase = () => {
     .catch((error) => {
         setError(error.message)
         console.log(error);
-    });
+    })
+    .finally(()=> setIsLoading(false))
     }
     const logInUser = (email,password,location,history) =>{
+        setIsLoading(true)
     signInWithEmailAndPassword(auth, email, password)
     .then((result) => {
         const destination = location?.state?.from || '/'
@@ -33,7 +37,8 @@ const useFirebase = () => {
     })
     .catch((error) => {
         setError(error.message)
-    });
+    })
+    .finally(()=> setIsLoading(false))
     }
 
     useEffect( ()=> {
@@ -44,6 +49,7 @@ const useFirebase = () => {
             else{
                 setUser({})
             }
+            setIsLoading(false)
         }))
         return () => unsubscribe
     },[])
@@ -59,16 +65,19 @@ const useFirebase = () => {
     }
 
     const logOut = () => {
+        setIsLoading(true)
         signOut(auth).then(() => {
             // Sign-out successful.
           }).catch((error) => {
             // An error happened.
-          });
+          })
+          .finally(()=> setIsLoading(false))
     }
 
     return {
         user,
         error,
+        isLoading,
         registerUser,
         logInUser,
         signInUsingGoogle,

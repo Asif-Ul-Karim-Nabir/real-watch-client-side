@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import { Container, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Review from '../Review/Review';
 
 const Reviews = () => {

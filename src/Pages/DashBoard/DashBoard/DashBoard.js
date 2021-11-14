@@ -120,7 +120,7 @@ function DashBoard(props) {
       </Box>
          <Switch>
           <Route exact path="/dashboard">
-          <h3>Welcome to our DashBoard !!</h3>
+          <h3 style={{height:'100vh'}}>Welcome to our DashBoard !!</h3>
           </Route>
           <Route path="/dashboard/order">
             <MyOrder></MyOrder>

@@ -11,20 +11,15 @@ import { Button, Grid } from '@mui/material';
 const MyOrder = ( ) => {
     const [deletes, setDeletes] = useState({})
     const [order, setOrder] = useState([])
-console.log(order?.price);
+console.log(deletes?.price);
     useEffect( () => {
         fetch('https://peaceful-journey-32516.herokuapp.com/orders')
         .then(res=>res.json())
         .then(data=>setOrder(data))
     },[])
     const handleDelete = () =>{
-        fetch(`http://localhost:4000/orders/${order?._id}`,{
-            method: 'DELETE',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(deletes)
-        })
+      console.log('delete')
+        fetch(`http://localhost:4000/orders/${deletes.id}`,)
         .then(res=>res.json())
         .then(data=>{
             console.log(data)

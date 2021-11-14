@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import { Button, Typography } from '@mui/material';
+import { Alert, Button, CircularProgress, Typography } from '@mui/material';
 import { NavLink,useHistory,useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth/useAuth';
 
 const Login = () => {
-    const {logInUser,signInUsingGoogle} = useAuth()
+    const {user,error,logInUser,signInUsingGoogle,isLoading} = useAuth()
     const [logInData, setLoginData] = useState({});
-    const history = useHistory()
     const location = useLocation()
+    const history = useHistory()
 
     const handleOnChange = (e) => {
         const feild = e.target.name;
@@ -21,7 +21,7 @@ const Login = () => {
         setLoginData(newLogInData)
     }
     const handleLogInSubmit = (e) => {
-        logInUser(logInData.email, logInData.password,history,location)
+        logInUser(logInData?.email, logInData?.password,location,history)
         e.preventDefault()
     }
     return (
@@ -31,7 +31,7 @@ const Login = () => {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     Please LogIn
                     </Typography>
-                    <form onSubmit={handleLogInSubmit}>
+                    {!isLoading && <form onSubmit={handleLogInSubmit}>
                     <TextField      
                     sx={{width:'50%',marginBottom:'15px'}}         
                     label="Your Email"
@@ -52,9 +52,12 @@ const Login = () => {
                     /> <br /> <br />
                     <Button sx={{width:'50%'}}  type="submit"  variant="contained" >LogIn</Button><br /> <br />
                     <NavLink style={{textDecoration:'none',color:'blue'}} to="/register">New User. Create an account?</NavLink>
-                    </form>
                     <div>-----------------------------------</div>
                     <Button sx={{width:'25%'}}  type="submit"  variant="contained" onClick={signInUsingGoogle}>Sign In Google</Button>
+                    </form>}
+                    {isLoading && <CircularProgress />}    
+                    {user?.email && <Alert severity="success">User LoggedIn Successfully!</Alert>}
+                    {error && <Alert severity="error">{error}</Alert>}
                 </Grid>
                 <Grid item  xs={12} md={6}>
                     

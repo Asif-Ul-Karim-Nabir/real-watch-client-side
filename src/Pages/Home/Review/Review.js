@@ -17,7 +17,7 @@ const Review = ({review}) => {
             <Typography variant="body2" color="text.secondary">
             {email}
             </Typography>
-            <Rating name="read-only" value={ratings} readOnly />
+            <Rating name="read-only"  value={parseFloat(ratings)} readOnly />
             <Typography gutterBottom variant="h5" component="div">
              {review_text}
             </Typography>
