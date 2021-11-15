@@ -25,7 +25,8 @@ const Login = () => {
         e.preventDefault()
     }
     return (
-        <Box>
+        <div style={{marginBottom:'15%'}}>
+              <Box>
             <Grid sx={{marginTop:'5%'}} container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={12} md={6}>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -62,8 +63,9 @@ const Login = () => {
                 <Grid item  xs={12} md={6}>
                     
                 </Grid>
-            </Grid>
-        </Box>
+                </Grid>
+            </Box>
+        </div>
     );
 };
 

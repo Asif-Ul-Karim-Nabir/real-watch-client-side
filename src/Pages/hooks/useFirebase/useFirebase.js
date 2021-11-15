@@ -8,15 +8,17 @@ const useFirebase = () => {
     const [user, setUser] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState('')
+    const [admin ,setAdmin] = useState(false)
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
 
-    const registerUser = (email,password,history) => {
+    const registerUser = (email,password,name,history) => {
         setIsLoading(true)
     createUserWithEmailAndPassword(auth, email, password)
     .then((result) => {
         const user = result.user;
         setUser(user)
+        saveUser(email,name,'POST')
         history.replace('/')
         setError('')
         console.log(user);
@@ -41,6 +43,14 @@ const useFirebase = () => {
     .finally(()=> setIsLoading(false))
     }
 
+    useEffect(()=>{
+        fetch(`https://peaceful-journey-32516.herokuapp.com/users/${user?.email}`)
+        .then(res=>res.json())
+        .then(data=>{
+            setAdmin(data.admin)
+        })
+    },[user?.email])
+
     useEffect( ()=> {
         const unsubscribe = onAuthStateChanged(auth,(user=>{
             if(user){
@@ -52,12 +62,16 @@ const useFirebase = () => {
             setIsLoading(false)
         }))
         return () => unsubscribe
-    },[])
-    const signInUsingGoogle = () => {
+    },[auth])
+    const signInUsingGoogle = (location,history) => {
     signInWithPopup(auth, googleProvider)
     .then((result) => {
         const user = result.user;
+        saveUser(user.email,user.displayName,'PUT')
         setUser(user)
+        const destination = location?.state?.from || '/'
+        history.replace(destination)
+        setError('')
         console.log(user);
     }).catch((error) => {
         
@@ -73,11 +87,24 @@ const useFirebase = () => {
           })
           .finally(()=> setIsLoading(false))
     }
+    
+    const saveUser = (email,displayName,method)=>{
+        const user= {email,displayName}
+        fetch('https://peaceful-journey-32516.herokuapp.com/users',{
+            method:method,
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify(user)
+        })
+        .then()
+    }
 
     return {
         user,
         error,
         isLoading,
+        admin,
         registerUser,
         logInUser,
         signInUsingGoogle,

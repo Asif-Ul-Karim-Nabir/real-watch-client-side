@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Grid from '@mui/material/Grid';
 import Review from '../Review/Review';
 import './Reviews.css'
 

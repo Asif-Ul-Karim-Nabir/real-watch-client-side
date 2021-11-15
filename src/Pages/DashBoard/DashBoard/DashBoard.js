@@ -10,16 +10,19 @@ import List from '@mui/material/List';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Link,Route, Switch, NavLink } from 'react-router-dom';
+import { Link,Route, Switch, NavLink,useRouteMatch } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth/useAuth';
 import { Button } from '@mui/material';
 import MyOrder from '../MyOrder/MyOrder';
 import AddReviews from '../AddReviews/AddReviews';
+import MakeAdmin from '../MakeAdmin/MakeAdmin';
+
 
 const drawerWidth = 240;
 
 function DashBoard(props) {
-  const {logOut} = useAuth()
+  const {logOut,admin} = useAuth()
+  let { path, url } = useRouteMatch();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -32,7 +35,7 @@ function DashBoard(props) {
       <h3 style={{marginBottom:'-47px'}}>Real Watch</h3>
       <Toolbar />
       <Divider />
-      <List>
+        <List>
        <NavLink style={{textDecoration:'none',color:'black'}} to="/home">
         Home
       </NavLink>
@@ -42,19 +45,38 @@ function DashBoard(props) {
         Products
       </NavLink>
       </List>
-      <List>     
-      <Link style={{textDecoration:'none',color:'black'}} to="/dashboard/order">My Order</Link>
-      </List>
-      <List>     
-      <Link style={{textDecoration:'none',color:'black'}} to="/dashboard/payment">Payment</Link>
-      </List>
-      <List>
-      <Link style={{textDecoration:'none',color:'black'}} to="/dashboard/reviews">Reviews</Link>
-      </List>
+
+      {admin &&<Box>  
+        <List>
+          <Link style={{textDecoration:'none',color:'black'}} to={`${url}/admin`}>Make Admin</Link> 
+          </List>
+          <List>      
+          <Link style={{textDecoration:'none',color:'black'}} to={`${url}/add-products`}>Add Products</Link>   
+          </List>  
+          <List>
+          <Link style={{textDecoration:'none',color:'black'}} to={`${url}/manage-products`}>Manage Products</Link> 
+          </List>
+          <List>    
+          <Link style={{textDecoration:'none',color:'black'}} to={`${url}/manage-all-orders`}>Manage All Orders</Link>  
+          </List>   
+        </Box>}
+
+      {!admin   && 
+      <Box>  
+        <List>        
+            <Link style={{textDecoration:'none',color:'black'}} to={`${url}/order`}>My Order</Link>
+            </List>    
+            <List>
+            <Link style={{textDecoration:'none',color:'black'}} to={`${url}/payment`}>Payment</Link>
+            </List>
+            <List>
+            <Link style={{textDecoration:'none',color:'black'}} to={`${url}/reviews`}>Reviews</Link>
+            </List>
+        </Box>}
+
       <List>
        <Link style={{textDecoration:'none'}} to="/home">
-         <Button sx={{textDecoration:'none',color:'black'}} color="inherit" onClick={logOut}>Log Out</Button></Link>
-      </List>
+         <Button sx={{textDecoration:'none',color:'black'}} color="inherit" onClick={logOut}>Log Out</Button></Link></List>
       <Divider />
     </div>
   );
@@ -119,16 +141,28 @@ function DashBoard(props) {
         </Drawer>
       </Box>
          <Switch>
-          <Route exact path="/dashboard">
+          <Route exact path={path}>
           <h3 style={{height:'100vh'}}>Welcome to our DashBoard !!</h3>
           </Route>
-          <Route path="/dashboard/order">
+          <Route path={`${path}/order`}>
             <MyOrder></MyOrder>
           </Route>
-          <Route path="/dashboard/payment">
+          <Route path={`${path}/payment`}>
           <h3 style={{height:'100vh'}}>Payment System Is Comming Soon....</h3>
           </Route>
-          <Route path="/dashboard/reviews">
+          <Route path={`${path}/admin`}>
+          <MakeAdmin></MakeAdmin>
+          </Route>
+          <Route path={`${path}/add-products`}>
+          <h3 style={{height:'100vh'}}>Add Products</h3>
+          </Route>
+          <Route path={`${path}/manage-products`}>
+          <h3 style={{height:'100vh'}}> Manage products will be provided later.</h3>
+          </Route>
+          <Route path={`${path}/manage-all-orders`}>
+          <h3 style={{height:'100vh'}}>Manage all orders will be provided later.</h3>
+          </Route>
+          <Route path={`${path}/reviews`}>
           <AddReviews></AddReviews>
           </Route>
          </Switch>

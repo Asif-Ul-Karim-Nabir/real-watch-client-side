@@ -21,19 +21,28 @@ const Register = () => {
     }
     const handleLogInSubmit = (e) => {
         if(logInData.password !== logInData.password2){
-            alert('password did not match')
+            alert('Your password did not match')
+            return
         }
-        registerUser(logInData.email, logInData.password,history)
+        registerUser(logInData.email, logInData.password,logInData.name,history)
         e.preventDefault();
     }
     return (
-        <Box>
+        <div style={{marginBottom:'15%'}}>
+              <Box>
             <Grid sx={{marginTop:'5%'}} container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={12} md={6}>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     Please Register
                     </Typography>
                     {!isLoading &&<form onSubmit={handleLogInSubmit}>
+                    <TextField      
+                    sx={{width:'50%',marginBottom:'15px'}}         
+                    label="Your Name"                    
+                    name="name"
+                    onChange={handleOnChange}
+                    variant="standard"
+                    /> <br />
                     <TextField      
                     sx={{width:'50%',marginBottom:'15px'}}         
                     label="Your Email"
@@ -74,8 +83,9 @@ const Register = () => {
                 <Grid item  xs={12} md={6}>
                     
                 </Grid>
-            </Grid>
-        </Box>
+                </Grid>
+            </Box>
+        </div>
     );
 };
 
