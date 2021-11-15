@@ -38,7 +38,7 @@ const AddReviews = () => {
         <div style={{marginLeft:'25%',marginTop:'5%',height:'100vh'}}>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             <Grid >
-            {success && <Alert severity="success">Add Products Successfully!</Alert>}
+            {success && <Alert severity="success">Add Review Successfully!</Alert>}
             <form>
             <TextField
              id="outlined-basic" 
