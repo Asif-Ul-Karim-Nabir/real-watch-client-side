@@ -16,6 +16,7 @@ import { Button } from '@mui/material';
 import MyOrder from '../MyOrder/MyOrder';
 import AddReviews from '../AddReviews/AddReviews';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
+import AddProducts from '../AddProducts/AddProducts';
 
 
 const drawerWidth = 240;
@@ -154,7 +155,7 @@ function DashBoard(props) {
           <MakeAdmin></MakeAdmin>
           </Route>
           <Route path={`${path}/add-products`}>
-          <h3 style={{height:'100vh'}}>Add Products</h3>
+          <AddProducts></AddProducts>
           </Route>
           <Route path={`${path}/manage-products`}>
           <h3 style={{height:'100vh'}}> Manage products will be provided later.</h3>

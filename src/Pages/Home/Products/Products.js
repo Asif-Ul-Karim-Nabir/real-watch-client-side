@@ -7,7 +7,7 @@ const Products = () => {
     useEffect( () => {
         fetch('https://peaceful-journey-32516.herokuapp.com/products')
         .then(res=>res.json())
-        .then(data=>setProducts(data.slice(0,6)))
+        .then(data=>setProducts(data))
     },[])
     return (
         <div style={{backgroundColor:'#F6F6F6',paddingBottom:'20px'}}>

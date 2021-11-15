@@ -1,8 +1,9 @@
-import { Button, Grid, TextField } from '@mui/material';
+import { Alert, Button, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 
 const AddReviews = () => {
     const [reviews, setReviews] = useState({});
+    const [success, setSuccess] = useState(false)
 
     const handleOnBlur = (e) => {
         const feild = e.target.name;
@@ -19,7 +20,7 @@ const AddReviews = () => {
         }
         console.log(review);
          // send to the server 
-         fetch('http://localhost:4000/reviews',{
+         fetch('https://peaceful-journey-32516.herokuapp.com/reviews',{
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -29,6 +30,7 @@ const AddReviews = () => {
         .then(res=>res.json())
         .then(data=>{
             console.log(data);
+            setSuccess(true)
         })
         e.preventDefault()
     }
@@ -36,6 +38,7 @@ const AddReviews = () => {
         <div style={{marginLeft:'25%',marginTop:'5%',height:'100vh'}}>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             <Grid >
+            {success && <Alert severity="success">Add Products Successfully!</Alert>}
             <form>
             <TextField
              id="outlined-basic" 

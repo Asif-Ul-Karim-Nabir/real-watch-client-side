@@ -1,9 +1,9 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyClodWouP-JF4uGvdiewFR43NJvRR_EJX8",
-  authDomain: "real-watch.firebaseapp.com",
-  projectId: "real-watch",
-  storageBucket: "real-watch.appspot.com",
-  messagingSenderId: "551878793985",
-  appId: "1:551878793985:web:545cfb4ebe084e93add900"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID
 };
   export default firebaseConfig;

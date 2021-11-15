@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Alert, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import Card from '@mui/material/Card';
@@ -14,6 +14,7 @@ const Purchase = () => {
    const {_id} = useParams()
     const [product, setProduct] = useState([]);
     const [orderInfo, setOrderInfo] = useState({});
+    const [success,setSuccess] = useState(false)
 
     useEffect( () => {
         fetch(`https://peaceful-journey-32516.herokuapp.com/products/${_id}`)
@@ -47,9 +48,9 @@ const Purchase = () => {
         })
         .then(res=>res.json())
         .then(data=>{
+            setSuccess(true)
             console.log(data);
         })
-        alert('order successfull.')
         e.preventDefault()
     }
     return (
@@ -83,6 +84,7 @@ const Purchase = () => {
             <Typography variant="h4" component="div" sx={{ flexGrow: 1,marginBottom:'20px' }}>
                     Purchase
                     </Typography>
+                    {success && <Alert severity="success">Order Complete Successfully!</Alert>}
                     <form>
                     <TextField      
                     sx={{width:'50%',marginBottom:'15px'}}         

@@ -7,56 +7,66 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, Grid } from '@mui/material';
+import useAuth from '../../hooks/useAuth/useAuth'
 
 const MyOrder = ( ) => {
+     const {user} = useAuth()
     const [deletes, setDeletes] = useState({})
     const [order, setOrder] = useState([])
-console.log(deletes?.price);
+
     useEffect( () => {
         fetch('https://peaceful-journey-32516.herokuapp.com/orders')
         .then(res=>res.json())
         .then(data=>setOrder(data))
     },[])
-    const handleDelete = () =>{
+    const handleDelete = (e) =>{
       console.log('delete')
-        fetch(`http://localhost:4000/orders/${deletes.id}`,)
+        fetch(`https://peaceful-journey-32516.herokuapp.com/orders/${user?.email}`,{
+          method:'DELETE',
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify(deletes)
+        })
         .then(res=>res.json())
         .then(data=>{
             console.log(data)
             setDeletes(data)
+  
         })
+        e.preventDefault()
     }
     return (
         <Grid item xs={10} md={8} sx={{height:'100vh'}}>
             <h3>My Order : {order.length}</h3>
             <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Product Name</TableCell>
-            <TableCell align="right">Price</TableCell>
-            <TableCell align="right">Email</TableCell>
-            
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {order.map((row) => (
-            <TableRow
-              key={row._id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.productName}
-              </TableCell>
-              <TableCell align="right">{row.price}</TableCell>
-              <TableCell align="right">{row.email}</TableCell>
-              <TableCell align="right">
-              <Button onClick={handleDelete} variant="contained">Delete</Button></TableCell>            
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Product Name</TableCell>
+                  <TableCell align="right">Price</TableCell>
+                  <TableCell align="right">Email</TableCell>
+                  
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {order.map((row) => (
+                  <TableRow
+                    key={row._id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {row.productName}
+                    </TableCell>
+                    <TableCell align="right">{row.price}</TableCell>
+                    <TableCell align="right">{row.email}</TableCell>
+                    <TableCell align="right">
+                    <Button onClick={handleDelete} variant="contained">Delete</Button></TableCell>            
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Grid>
     );
 };

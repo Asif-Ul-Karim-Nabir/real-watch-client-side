@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 const MakeAdmin = () => {
     const [email ,setEmail] = useState('')
-    const [succes,setSuccess] = useState(false)
+    const [success,setSuccess] = useState(false)
     const handleOnBlur = e => {
         setEmail(e.target.value)
     }
@@ -37,7 +37,7 @@ const MakeAdmin = () => {
               variant="standard" /><br/><br />
               <Button type="submit" variant="contained">Make Admin</Button>
             </form>
-            {succes && <Alert severity="success">Made Admin Successfully!</Alert>}
+            {success && <Alert severity="success">Made Admin Successfully!</Alert>}
         </div>
     );
 };
